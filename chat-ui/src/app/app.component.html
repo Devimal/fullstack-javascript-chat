@@ -1,0 +1,32 @@
+<form *ngIf="!joined; else chat" (submit)="onJoinChat()" class="join-form">
+  <div class="join-message">{{ joinMessage }}</div>
+  <div>
+    <input
+      type="text"
+      name="username"
+      [(ngModel)]="username"
+      placeholder="Username"
+      class="join-input"
+    />
+  </div>
+  <button type="submit" class="join-submit">Join</button>
+</form>
+
+<ng-template #chat>
+  <div class="chat">
+    <ul #chatUlElement class="chat-content">
+      <li *ngFor="let history of chatHistory">
+        [{{ history.time | date: 'full' }}] {{ history.username }} said:
+        <br />
+        <br />
+        {{ history.message }}
+      </li>
+    </ul>
+    <form (submit)="onSendMessage()" class="chat-form">
+      <div class="chat-message">
+        <input type="text" name="message" [(ngModel)]="message" />
+        <button type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
